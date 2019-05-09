@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
 
 import './main-view.scss'
 
@@ -15,13 +16,15 @@ import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { RegistrationView } from '../registration-view/registration-view';
+import { DirectorView } from '../director-view/director-view';
+import { GenreView } from '../genre-view/genre-view';
 
 export class MainView extends React.Component{
   constructor(){
   super();
 
   this.state = {
-    movies: null,
+    movies: [],
     user: null
   };
   }
@@ -67,16 +70,26 @@ export class MainView extends React.Component{
   render(){
     const { movies, user } = this.state;
 
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-
     if (!movies) return <div className="main-view"/>;
 
     return (
       <Router>
-         <div className="main-view">
-          <Route exact path="/" render={() => movies.map(m => <MovieCard key={m._id} movie={m}/>)}/>
+        <Route exact path="/" render={() => {
+          if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+          return movies.map(m => <MovieCard key={m._id} movie={m}/>)
+        }
+        }/>
+          <Route path="/register" render={() => <RegistrationView />} />
           <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
-         </div>
+          <Route path="/directors/:name" render={({ match }) => {
+            if (!movies || !movies.length) return <div className="main-view"/>;
+            return <DirectorView director={movies.find(m => m.director.name === match.params.name).director}/>}
+          }/>
+          <Route path="/movies/genre/:name" render={({ match }) => {
+            if (!movies || !movies.length) return <div className="main-view"/>;
+            return <GenreView genre={movies.find(m => m.genre.name === match.params.name).genre}/>}
+          }/>
+          }}
       </Router>
     );
   }
