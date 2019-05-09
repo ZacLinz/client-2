@@ -18,7 +18,7 @@ export function RegistrationView(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.post('https://my-movie-108.herokuapp.com/users', {
-      params: {
+      body: {
         username: username,
         email: email,
         /*birthday: birthday,*/
