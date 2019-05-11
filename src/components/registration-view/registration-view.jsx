@@ -56,8 +56,9 @@ export function RegistrationView(props) {
     <Form.Label>Confirm Password</Form.Label>
     <Form.Control type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Re-enter Password" />
   </Form.Group>
-  <Button variant="primary" type="submit" onClick={handleSubmit}>
-    Submit
+  <Button variant="primary" type="submit" onClick={handleSubmit}
+  disabled={!username || !email || !password.includes(confirmPassword) || password !== confirmPassword}>
+    Register
   </Button>
 </Form>
   );
