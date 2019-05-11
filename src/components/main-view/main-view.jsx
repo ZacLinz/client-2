@@ -90,7 +90,6 @@ export class MainView extends React.Component{
             if (!movies || !movies.length) return <div className="main-view"/>;
             return <GenreView genre={movies.find(m => m.genre.name === match.params.name).genre}/>}
           }/>
-          }}
       </Router>
     );
   }

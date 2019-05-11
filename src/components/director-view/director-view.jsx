@@ -15,23 +15,23 @@ export class DirectorView extends React.Component{
     this.state={};
   }
   render(){
-    const {movie} = this.props;
+    const {director} = this.props;
 
-    if (!movie) return null;
+    if (!director) return null;
 
     return(
       <Container className="movie-view">
         <Row className="director-name">
-          <Col lg="2" className="label">Name </Col>
-          <Col className="value">{movie.director.name}</Col>
+          <Col lg="2" className="label">Name: </Col>
+          <Col className="value">{director.name}</Col>
         </Row>
         <Row className="director-bio">
-          <Col lg="2" className="label">Bio </Col>
-          <Col className="value">{movie.director.bio}</Col>
+          <Col lg="2" className="label">Bio: </Col>
+          <Col className="value">{director.bio}</Col>
         </Row>
         <Row className="director-birth">
-          <Col lg="2" className="label">Birthyear </Col>
-          <Col className="value">{movie.director.birth}</Col>
+          <Col lg="2" className="label">Birthyear: </Col>
+          <Col className="value">{director.birth}</Col>
         </Row>
       </Container>
 

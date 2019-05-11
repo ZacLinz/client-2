@@ -15,22 +15,21 @@ export class GenreView extends React.Component{
     this.state={};
   }
   render(){
-    const {movie} = this.props;
+    const {genre} = this.props;
 
-    if (!movie) return null;
+    if (!genre) return null;
 
     return(
       <Container className="movie-view">
         <Row className="genre-name">
           <Col lg="2" className="label">Genre Name: </Col>
-          <Col className="value">{movie.genre.name}</Col>
+          <Col className="value">{genre.name}</Col>
         </Row>
         <Row className="genre-description">
           <Col lg="2" className="label">Description: </Col>
-          <Col className="value">{movie.genre.description}</Col>
+          <Col className="value">{genre.description}</Col>
         </Row>
       </Container>
-
     );
   }
 }

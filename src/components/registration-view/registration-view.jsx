@@ -11,20 +11,18 @@ import Form from 'react-bootstrap/Form';
 export function RegistrationView(props) {
   const [ username, setUsername ] = useState('');
   const [ password, setPassword ] = useState('');
-  const [ confirm , setConfirm ] = useState('');
+  const [ confirmPassword , setConfirmPassword ] = useState('');
   const [ email, setEmail ] = useState('');
   const [ birthday, setBirthday ] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.post('https://my-movie-108.herokuapp.com/users', {
-      body: {
         username: username,
         email: email,
-        /*birthday: birthday,*/
+        birthday: birthday,
         password: password,
-        confirm: confirm
-      }
+        confirmPassword: confirmPassword
     })
     .then(response =>{
       const data = response.data;
@@ -46,17 +44,17 @@ export function RegistrationView(props) {
     <Form.Label>Email Address</Form.Label>
     <Form.Control type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Enter valid Email" />
   </Form.Group>
-  {/*<Form.Group controlId="formBasicBirthday">
+  <Form.Group controlId="formBasicBirthday">
     <Form.Label>Birthday</Form.Label>
-    <Form.Control type="birthday" value={birthday} onChange={e => setBirthday(e.target.value)} placeholder="yyyy-mm-dd" />
-  </Form.Group>*/}
+    <Form.Control type="date" value={birthday} onChange={e => setBirthday(e.target.value)} placeholder="yyyy-mm-dd" />
+  </Form.Group>
   <Form.Group controlId="formBasicPassword">
     <Form.Label>Password</Form.Label>
     <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" />
   </Form.Group>
   <Form.Group controlId="formBasicConfirmPassword">
     <Form.Label>Confirm Password</Form.Label>
-    <Form.Control type="password" value={confirm} onChange={e => setConfirm(e.target.value)} placeholder="Re-enter Password" />
+    <Form.Control type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Re-enter Password" />
   </Form.Group>
   <Button variant="primary" type="submit" onClick={handleSubmit}>
     Submit
