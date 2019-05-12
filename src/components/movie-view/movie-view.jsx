@@ -34,7 +34,7 @@ export class MovieView extends React.Component{
         <Row className="movie-genre">
           <Col lg="2" className="label">Genre: </Col>
           <Col className="value">{movie.genre.name}</Col>
-          <Link to={`/movies/genre/${movie.genre.name}`}>
+          <Link to={`/movies/genres/${movie.genre.name}`}>
             <Button variant="link">Click here</Button>
           </Link>
         </Row>
