@@ -81,6 +81,9 @@ export class MainView extends React.Component{
         }
         }/>
           <Route path="/register" render={() => <RegistrationView />} />
+          <Route path="/users/:username" render={({match}) => {
+          return <ProfileView user={user.find(u => u.username === match.params.username).user}/>}
+        }/>
           <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
           <Route path="/directors/:name" render={({ match }) => {
             if (!movies || !movies.length) return <div className="main-view"/>;
@@ -90,6 +93,11 @@ export class MainView extends React.Component{
             if (!movies || !movies.length) return <div className="main-view"/>;
             return <GenreView genre={movies.find(m => m.genre.name === match.params.name).genre}/>}
           }/>
+          {/*<Nav className="justify-content-end" activeKey="/">
+            <Nav.Item>
+              <Nav.Link href={`/users/${user.username}`}>{user.username}</Nav.Link>
+            </Nav.Item>
+          </Nav>*/}
       </Router>
     );
   }
