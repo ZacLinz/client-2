@@ -26,10 +26,25 @@ export class ProfileView extends React.Component{
     this.state={};
   }
 
-
+getFavorites(token) {
+  axios.get('https://my-movie-108.herokuapp.com/users/${user}/favorites', {
+    headers: { Authorization: `Bearer ${token}`}
+  })
+  .then(response => {
+    this.setState({
+      movies: response.data
+    });
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+})
 
   render(){
     const {user} = this.props;
 
     if (!user) return null;
+
+
 }}
