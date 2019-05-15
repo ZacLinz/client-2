@@ -1,14 +1,15 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import PropTypes from 'prop-types';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+//import PropTypes from 'prop-types';
+//import Container from 'react-bootstrap/Container';
+//import Row from 'react-bootstrap/Row';
+//import Col from 'react-bootstrap/Col';
+//import Card from 'react-bootstrap/Card';
+//import Button from 'react-bootstrap/Button';
+//import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
+import {Link} from "react-router-dom";
 
 import './main-view.scss'
 
@@ -75,11 +76,17 @@ export class MainView extends React.Component{
 
     return (
       <Router>
+        <Nav className="justify-content-end" activeKey="/">
+          <Nav.Item>
+            <Link to={`/users/${user}`}>{user}</Link>
+            </Nav.Item>
+        </Nav>
         <Route exact path="/" render={() => {
           if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
           return movies.map(m => <MovieCard key={m._id} movie={m}/>)
         }
         }/>
+
           <Route path="/register" render={() => <RegistrationView />} />
           <Route path="/users/:username" render={() => <ProfileView />} />
           <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
@@ -91,11 +98,7 @@ export class MainView extends React.Component{
             if (!movies || !movies.length) return <div className="main-view"/>;
             return <GenreView genre={movies.find(m => m.genre.name === match.params.name).genre}/>}
           }/>
-          <Nav className="justify-content-end" activeKey="/">
-            <Nav.Item>
-              <Nav.Link href={`/users/${user}`}>{user}</Nav.Link>
-            </Nav.Item>
-          </Nav>
+
       </Router>
     );
   }

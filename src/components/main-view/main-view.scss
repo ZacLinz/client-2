@@ -1,8 +1,14 @@
 $color: steelblue;
+$colorButton: #33FF55;
 
 body{
   background-color: $color;
   font-family: 'roboto condensed', sans-serif;
   font-size: 12px;
   line-height: 16px;
+}
+
+.justify-content-end{
+  font-size: 16px;
+  background-color: $colorButton;
 }
