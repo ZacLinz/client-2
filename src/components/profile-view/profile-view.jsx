@@ -19,19 +19,10 @@ import { RegistrationView } from '../registration-view/registration-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 
-export class ProfileView extends React.Component{
-  constructor(){
-  super();
-    this.state = {
-      user: ''
-    };
-}
+export function ProfileView(props){
+  const user = '';
 
-  handleChange = (e) => {
-    this.setState({ user: e.target.value });
-  }
-
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     axios.delete(`https://my-movie-108.herokuapp.com/users/${this.state.user}`)
@@ -40,13 +31,11 @@ export class ProfileView extends React.Component{
       })
     }
 
-  render(){
     return(
         <Form>
           <Form.Label> Please type in username to confirm you want to delete: </Form.Label>
-          <Form.Control value={user} onChange = {this.handleChange} />
+          <Form.Control value={user}/>
           <Button className="submit" type="submit" onClick={handleSubmit}> Delete </Button>
         </Form>
     )
-
-}}
+}
