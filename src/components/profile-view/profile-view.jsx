@@ -21,30 +21,32 @@ import { GenreView } from '../genre-view/genre-view';
 
 export class ProfileView extends React.Component{
   constructor(){
-    super();
+  super();
+    this.state = {
+      user: ''
+    };
+}
 
-    this.state={};
+  handleChange = (e) => {
+    this.setState({ user: e.target.value });
   }
 
-getFavorites(token) {
-  axios.get('https://my-movie-108.herokuapp.com/users/${user}/favorites', {
-    headers: { Authorization: `Bearer ${token}`}
-  })
-  .then(response => {
-    this.setState({
-      movies: response.data
-    });
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-}
-})
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    axios.delete(`https://my-movie-108.herokuapp.com/users/${this.state.user}`)
+      .then(res => {
+        console.log(res)
+      })
+    }
 
   render(){
-    const {user} = this.props;
-
-    if (!user) return null;
-
+    return(
+        <Form>
+          <Form.Label> Please type in username to confirm you want to delete: </Form.Label>
+          <Form.Control value={user} onChange = {this.handleChange} />
+          <Button className="submit" type="submit" onClick={handleSubmit}> Delete </Button>
+        </Form>
+    )
 
 }}
