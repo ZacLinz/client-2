@@ -79,7 +79,7 @@ export class MainView extends React.Component{
         <Nav className="justify-content-end" activeKey="/">
           <Nav.Item>
             <Link to={`/users/${user}`}>{user}</Link>
-            </Nav.Item>
+          </Nav.Item>
         </Nav>
         <Route exact path="/" render={() => {
           if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
@@ -88,7 +88,12 @@ export class MainView extends React.Component{
         }/>
 
           <Route path="/register" render={() => <RegistrationView />} />
-          <Route path="/users/:username" render={() => <ProfileView />} />
+
+          {user && (
+            <Route path="/users/:username"
+            render={() => <ProfileView user={user} />} />
+          )}
+
           <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
           <Route path="/directors/:name" render={({ match }) => {
             if (!movies || !movies.length) return <div className="main-view"/>;
