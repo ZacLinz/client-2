@@ -22,8 +22,9 @@ import './profile-view.scss'
 export class ProfileView extends React.Component{
   constructor(){
     super();
-    this.state={}
+    this.state ={};
   }
+
   updateInfo(token){
   }
 
@@ -39,9 +40,10 @@ export class ProfileView extends React.Component{
 
 
   render(){
+    const {user} = this.props;
     return(
         <div>
-          <Button className="submit" type="submit" onClick={this.handleSubmit}> De-register {this.props.user}?</Button>
+          <Button className="submit" type="submit" onClick={this.handleSubmit}> De-register {user}?</Button>
         </div>
     )
   }

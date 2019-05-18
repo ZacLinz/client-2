@@ -45,6 +45,20 @@ export class MainView extends React.Component{
     });
   }
 
+  getUsers(token) {
+    axios.get('https://my-movie-108.herokuapp.com/users', {
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    .then(response => {
+      this.setState({
+        users: response.data
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
   componentDidMount(){
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
@@ -63,14 +77,15 @@ export class MainView extends React.Component{
 
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.username);
-    this.getMovies(authData.token)
+    this.getMovies(authData.token);
+    this.getUsers(authData.token)
   }
 
 
 
 
   render(){
-    const { movies, user } = this.state;
+    const { movies, user, users } = this.state;
 
     if (!movies) return <div className="main-view"/>;
 
@@ -88,12 +103,9 @@ export class MainView extends React.Component{
         }/>
 
           <Route path="/register" render={() => <RegistrationView />} />
-
-          {user && (
-            <Route path="/users/:username"
-            render={() => <ProfileView user={user} />} />
-          )}
-
+          <Route path="/users/:username" render={({ match }) => {
+            return <ProfileView user={users.find(u => u.username = match.params.username).users}/>}
+          }/>
           <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
           <Route path="/directors/:name" render={({ match }) => {
             if (!movies || !movies.length) return <div className="main-view"/>;
