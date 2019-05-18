@@ -20,18 +20,24 @@ import './profile-view.scss'
 //import { GenreView } from '../genre-view/genre-view';
 
 export class ProfileView extends React.Component{
-  updateInfo(e){
-    e.preventDefault();
+  constructor(){
+    super();
+    this.state={}
+  }
+  updateInfo(token){
   }
 
 
-  handleSubmit(e){
-    e.preventDefault();
-    axios.delete(`https://my-movie-108.herokuapp.com/users/${this.props.user}`)
+  handleSubmit(token){
+    axios.delete(`https://my-movie-108.herokuapp.com/users/${this.props.user}`, {
+      headers: {Authorization: `Bearer ${token}`}
+    })
       .then(res => {
         console.log(res)
       })
     }
+
+
   render(){
     return(
         <div>
