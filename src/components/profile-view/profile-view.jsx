@@ -22,27 +22,31 @@ import "./profile-view.scss";
 export class ProfileView extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      profile: []
+    };
   }
 
   handleDelete(token) {
     console.log(this.props);
     axios
-      .delete(`https://my-movie-108.herokuapp.com/users/${this.state.user}`, {
+      .delete(`https://my-movie-108.herokuapp.com/users/${this.props.profile.username}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       .then(res => {
         console.log(res);
+        //localStorage.removeItem('token');
+        //localStorage.removeItem('user');
       });
   }
 
   render() {
     console.log(this.props);
-    const { user } = this.props;
+    const { profile } = this.props;
     return (
       <div>
         <Button className="submit" type="submit" onClick={this.handleDelete}>
-          De-register {this.state.user}?
+          De-register {profile.username}?
         </Button>
       </div>
     );

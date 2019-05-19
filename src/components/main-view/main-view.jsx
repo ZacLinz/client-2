@@ -111,7 +111,7 @@ export class MainView extends React.Component {
           render={({ match }) => {
             return (
               <ProfileView
-                user={
+                profile={
                   users && users.find(u => (u.username = match.params.username))
                 }
               />
