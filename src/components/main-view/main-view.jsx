@@ -1,5 +1,5 @@
-import React from 'react';
-import axios from 'axios';
+import React from "react";
+import axios from "axios";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 //import PropTypes from 'prop-types';
 //import Container from 'react-bootstrap/Container';
@@ -8,62 +8,64 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 //import Card from 'react-bootstrap/Card';
 //import Button from 'react-bootstrap/Button';
 //import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import {Link} from "react-router-dom";
+import Nav from "react-bootstrap/Nav";
+import { Link } from "react-router-dom";
 
-import './main-view.scss'
+import "./main-view.scss";
 
-import { LoginView } from '../login-view/login-view';
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
-import { RegistrationView } from '../registration-view/registration-view';
-import { DirectorView } from '../director-view/director-view';
-import { GenreView } from '../genre-view/genre-view';
-import { ProfileView } from '../profile-view/profile-view';
+import { LoginView } from "../login-view/login-view";
+import { MovieCard } from "../movie-card/movie-card";
+import { MovieView } from "../movie-view/movie-view";
+import { RegistrationView } from "../registration-view/registration-view";
+import { DirectorView } from "../director-view/director-view";
+import { GenreView } from "../genre-view/genre-view";
+import { ProfileView } from "../profile-view/profile-view";
 
-export class MainView extends React.Component{
-  constructor(){
-  super();
+export class MainView extends React.Component {
+  constructor() {
+    super();
 
-  this.state = {
-    movies: [],
-    user: null
-  };
+    this.state = {
+      movies: [],
+      user: ''
+    };
   }
 
   getMovies(token) {
-    axios.get('https://my-movie-108.herokuapp.com/movies', {
-      headers: { Authorization: `Bearer ${token}`}
-    })
-    .then(response => {
-      this.setState({
-        movies: response.data
+    axios
+      .get("https://my-movie-108.herokuapp.com/movies", {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(response => {
+        this.setState({
+          movies: response.data
+        });
+      })
+      .catch(function(error) {
+        console.log(error);
       });
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
   }
 
   getUsers(token) {
-    axios.get('https://my-movie-108.herokuapp.com/users', {
-      headers: { Authorization: `Bearer ${token}`}
-    })
-    .then(response => {
-      this.setState({
-        users: response.data
+    axios
+      .get("https://my-movie-108.herokuapp.com/users", {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(response => {
+        this.setState({
+          users: response.data
+        });
+      })
+      .catch(function(error) {
+        console.log(error);
       });
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
   }
 
-  componentDidMount(){
-    let accessToken = localStorage.getItem('token');
+  componentDidMount() {
+    let accessToken = localStorage.getItem("token");
     if (accessToken !== null) {
       this.setState({
-        user: localStorage.getItem('user')
+        user: localStorage.getItem("user")
       });
       this.getMovies(accessToken);
     }
@@ -75,19 +77,16 @@ export class MainView extends React.Component{
       user: authData.user.username
     });
 
-    localStorage.setItem('token', authData.token);
-    localStorage.setItem('user', authData.user.username);
+    localStorage.setItem("token", authData.token);
+    localStorage.setItem("user", authData.user.username);
     this.getMovies(authData.token);
-    this.getUsers(authData.token)
+    this.getUsers(authData.token);
   }
 
-
-
-
-  render(){
+  render() {
     const { movies, user, users } = this.state;
 
-    if (!movies) return <div className="main-view"/>;
+    if (!movies) return <div className="main-view" />;
 
     return (
       <Router>
@@ -96,26 +95,64 @@ export class MainView extends React.Component{
             <Link to={`/users/${user}`}>{user}</Link>
           </Nav.Item>
         </Nav>
-        <Route exact path="/" render={() => {
-          if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-          return movies.map(m => <MovieCard key={m._id} movie={m}/>)
-        }
-        }/>
+        <Route
+          exact
+          path="/"
+          render={() => {
+            if (!user)
+              return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+            return movies.map(m => <MovieCard key={m._id} movie={m} />);
+          }}
+        />
 
-          <Route path="/register" render={() => <RegistrationView />} />
-          <Route path="/users/:username" render={({ match }) => {
-            return <ProfileView user={users.find(u => u.username = match.params.username).users}/>}
-          }/>
-          <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
-          <Route path="/directors/:name" render={({ match }) => {
-            if (!movies || !movies.length) return <div className="main-view"/>;
-            return <DirectorView director={movies.find(m => m.director.name === match.params.name).director}/>}
-          }/>
-          <Route path="/genres/:name" render={({ match }) => {
-            if (!movies || !movies.length) return <div className="main-view"/>;
-            return <GenreView genre={movies.find(m => m.genre.name === match.params.name).genre}/>}
-          }/>
-
+        <Route path="/register" render={() => <RegistrationView />} />
+        <Route
+          path="/users/:username"
+          render={({ match }) => {
+            return (
+              <ProfileView
+                user={
+                  users && users.find(u => (u.username = match.params.username))
+                }
+              />
+            );
+          }}
+        />
+        <Route
+          path="/movies/:movieId"
+          render={({ match }) => (
+            <MovieView
+              movie={movies.find(m => m._id === match.params.movieId)}
+            />
+          )}
+        />
+        <Route
+          path="/directors/:name"
+          render={({ match }) => {
+            if (!movies || !movies.length) return <div className="main-view" />;
+            return (
+              <DirectorView
+                director={
+                  movies.find(m => m.director.name === match.params.name)
+                    .director
+                }
+              />
+            );
+          }}
+        />
+        <Route
+          path="/genres/:name"
+          render={({ match }) => {
+            if (!movies || !movies.length) return <div className="main-view" />;
+            return (
+              <GenreView
+                genre={
+                  movies.find(m => m.genre.name === match.params.name).genre
+                }
+              />
+            );
+          }}
+        />
       </Router>
     );
   }
