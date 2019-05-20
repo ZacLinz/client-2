@@ -9,24 +9,27 @@ export class ProfileView extends React.Component {
     this.state = {};
   }
 
-  handleDelete(token, e){
-    e.preventDefault();
-    //const token = localStorage.getItem("token");
+
+
+  handleDelete(token){
     const { profile } = this.props;
-    axios.delete(`https://my-movie-108.herokuapp.com/users/${profile.username}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-      .then(res => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        console.log(res);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    console.log(this.props);
+    console.log("clicked");
+    //axios.delete(`https://my-movie-108.herokuapp.com/users/${profile.username}`, {
+      //  headers: { Authorization: `Bearer ${token}` }
+      //})
+      //.then(res => {
+      //  localStorage.removeItem("token");
+      //  localStorage.removeItem("user");
+        //console.log(res);
+    //  })
+    ///  .catch(error => {
+      //  console.log(error);
+      //});
   }
 
   render() {
+    if (!this.props.profile) return "loading profile...";
     const { profile, token } = this.props;
     return (
       <div>
