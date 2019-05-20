@@ -27,7 +27,8 @@ export class MainView extends React.Component {
 
     this.state = {
       movies: [],
-      user: ''
+      user: "",
+      token: ""
     };
   }
 
@@ -68,6 +69,7 @@ export class MainView extends React.Component {
         user: localStorage.getItem("user")
       });
       this.getMovies(accessToken);
+      this.getUsers(accessToken);
     }
   }
 
@@ -84,7 +86,7 @@ export class MainView extends React.Component {
   }
 
   render() {
-    const { movies, user, users } = this.state;
+    const { movies, user, users} = this.state;
 
     if (!movies) return <div className="main-view" />;
 
@@ -114,6 +116,7 @@ export class MainView extends React.Component {
                 profile={
                   users && users.find(u => (u.username = match.params.username))
                 }
+                token={localStorage.getItem("token")}
               />
             );
           }}
