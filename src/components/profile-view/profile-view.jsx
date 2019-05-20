@@ -9,8 +9,9 @@ export class ProfileView extends React.Component {
     this.state = {};
   }
 
-  handleDelete(token, e) {
+  handleDelete(token, e){
     e.preventDefault();
+    //const token = localStorage.getItem("token");
     const { profile } = this.props;
     axios.delete(`https://my-movie-108.herokuapp.com/users/${profile.username}`, {
         headers: { Authorization: `Bearer ${token}` }
