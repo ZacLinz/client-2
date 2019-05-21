@@ -15,25 +15,26 @@ export class MovieCard extends React.Component {
   //super();
   //}
 
-  addToFavorites(token) {
-    const { movie, username } = this.props;
-    console.log({ token });
+  addToFavorites() {
+    const { movie, username, token } = this.props;
+    console.log({token});
     axios
       .post(
         `https://my-movie-108.herokuapp.com/users/${username}/favorites/${
-          movie._id
-        }`,
-        {
-          headers: { Authorization: `Bearer ${token}` }
+          movie._id}`, null,
+        {headers: { Authorization: `Bearer ${token}` }
         }
       )
       .then(res => {
         console.log(res);
+      })
+      .catch(error => {
+        console.log(error);
       });
   }
 
   render() {
-    const { movie, token } = this.props;
+    const { movie } = this.props;
     return (
       <Card style={{ width: "16rem" }}>
         <Card.Img variant="top" src={movie.ImagePath} />
@@ -43,7 +44,7 @@ export class MovieCard extends React.Component {
           <Link to={`/movies/${movie._id}`}>
             <Button variant="link">Open</Button>
           </Link>
-          <Button variant="submit" onClick={() => this.addToFavorites(token)}>
+          <Button variant="submit" onClick={() => this.addToFavorites()}>
             Add to Favorites
           </Button>
           <Link to={`directors/${movie.director.name}`}>
