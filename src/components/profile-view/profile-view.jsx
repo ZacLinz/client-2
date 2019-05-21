@@ -109,11 +109,12 @@ export class ProfileView extends React.Component {
 
   render() {
     if (!this.props.profile) return "loading profile...";
-    const { profile, token, favorites } = this.props;
+    const { profile, token} = this.props;
+    console.log({profile})
 
     return (
       <div>
-        <p>{favorites}</p>
+        <p>{profile.favorites}</p>
         <Form>
           <Form.Group controlId="formBasicUsername">
             <Form.Label>Username</Form.Label>
