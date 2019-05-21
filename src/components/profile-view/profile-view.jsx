@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Container from 'react-bootstrap/Container';
 import "./profile-view.scss";
 
 export class ProfileView extends React.Component {
@@ -24,17 +25,17 @@ export class ProfileView extends React.Component {
     this.handleUpdate = this.handleUpdate.bind(this);
   }
 
-  getFavorites(token){
-  const {profile} = this.props;
-  axios.get(`https://my-movie-108.herokuapp.com/users/${profile.username}`, {
-    headers: { Authorization: `Bearer ${token}` }
-  })
-  .then(response => {
-    this.setState({
-      favorites: response.data.favorites
-    })
-  })
-  }
+//  getFavorites(token){
+//  const {profile} = this.props;
+//  axios.get(`https://my-movie-108.herokuapp.com/users/${profile.username}`, {
+//    headers: { Authorization: `Bearer ${token}` }
+//  })
+//  .then(response => {
+//    this.setState({
+//      favorites: response.data.favorites
+//    })
+//  })
+//  }
 
   onUsernameChange(event) {
     this.setState({
@@ -110,11 +111,11 @@ export class ProfileView extends React.Component {
   render() {
     if (!this.props.profile) return "loading profile...";
     const { profile, token} = this.props;
-    console.log({profile})
-
     return (
       <div>
-        <p>{profile.favorites}</p>
+        <Container>
+          <p>{profile.favorites}</p>
+        </Container>
         <Form>
           <Form.Group controlId="formBasicUsername">
             <Form.Label>Username</Form.Label>
