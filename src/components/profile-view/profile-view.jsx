@@ -12,7 +12,8 @@ export class ProfileView extends React.Component {
       email: "",
       birthday: "",
       password: "",
-      confirmPassword: ""
+      confirmPassword: "",
+      favorites: []
     };
 
     this.onUsernameChange = this.onUsernameChange.bind(this);
@@ -23,12 +24,17 @@ export class ProfileView extends React.Component {
     this.handleUpdate = this.handleUpdate.bind(this);
   }
 
-  //getFavorites(token){
-  //const {profile} = this.props;
-  //axios.get(`https://my-movie-108.herokuapp.com/users/${profile.username}`, {
-  //  headers: { Authorization: `Bearer ${token}` }
-  //})
-  //}
+  getFavorites(token){
+  const {profile} = this.props;
+  axios.get(`https://my-movie-108.herokuapp.com/users/${profile.username}`, {
+    headers: { Authorization: `Bearer ${token}` }
+  })
+  .then(response => {
+    this.setState({
+      favorites: response.data.favorites
+    })
+  })
+  }
 
   onUsernameChange(event) {
     this.setState({
@@ -100,12 +106,21 @@ export class ProfileView extends React.Component {
       });
   }
 
+  componentDidMount(){
+    const {favorites} = this.state;
+    const {token} = this.props;
+    console.log({favorites});
+    this.getFavorites(token);
+  }
+
   render() {
     if (!this.props.profile) return "loading profile...";
     const { profile, token } = this.props;
+    const {favorites} = this.state;
+
     return (
       <div>
-        <p>{profile.favorites}</p>
+        <p>{favorites}</p>
         <Form>
           <Form.Group controlId="formBasicUsername">
             <Form.Label>Username</Form.Label>
