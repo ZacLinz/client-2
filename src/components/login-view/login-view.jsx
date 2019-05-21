@@ -9,6 +9,8 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./login-view.scss";
 
+import { Link } from "react-router-dom";
+
 export function LoginView(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -42,7 +44,6 @@ export function LoginView(props) {
           placeholder="Enter username"
         />
       </Form.Group>
-
       <Form.Group controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control
@@ -61,6 +62,12 @@ export function LoginView(props) {
       >
         Submit
       </Button>
+      <div>
+        <p>Not yet registered?</p>
+        <Link to={`/register`}>
+          <Button className="submit">Go to registration</Button>
+        </Link>
+      </div>
     </Form>
   );
 }

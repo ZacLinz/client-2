@@ -35,7 +35,6 @@ export class ProfileView extends React.Component {
       <div>
         <Button
           className="submit"
-          type="submit"
           onClick={this.handleDelete(token)}
         >
           De-register {profile.username}?
