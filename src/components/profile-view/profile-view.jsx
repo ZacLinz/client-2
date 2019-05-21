@@ -106,17 +106,10 @@ export class ProfileView extends React.Component {
       });
   }
 
-  componentDidMount(){
-    const {favorites} = this.state;
-    const {token} = this.props;
-    console.log({favorites});
-    this.getFavorites(token);
-  }
 
   render() {
     if (!this.props.profile) return "loading profile...";
-    const { profile, token } = this.props;
-    const {favorites} = this.state;
+    const { profile, token, favorites } = this.props;
 
     return (
       <div>
