@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 //import Container from 'react-bootstrap/Container';
 //import Row from 'react-bootstrap/Row';
@@ -10,7 +11,24 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
 export class MovieCard extends React.Component {
+  //constructor(){
+    //super();
+  //}
+
+  addToFavorites(token) {
+    const { movie } = this.props;
+    const {username} = localStorage.getItem("user");
+    axios.post(`https://my-movie-108.herokuapp.com/users/${username}/favorites/${movie._id}`,{
+      headers: { Authorization: `Bearer ${token}`}
+    })
+    .then(res => {
+      console.log(res)
+    })
+  }
+
+
   render() {
+    const { token } = localStorage.getItem("token");
     const { movie } = this.props;
 
     return (
@@ -22,6 +40,7 @@ export class MovieCard extends React.Component {
           <Link to={`/movies/${movie._id}`}>
             <Button variant="link">Open</Button>
           </Link>
+          <Button variant="link" onClick={()=>this.addToFavorites(token)}>Add to Favorites</Button>
           <Link to={`directors/${movie.director.name}`}>
             <Card.Text>{movie.director.name}</Card.Text>
           </Link>
