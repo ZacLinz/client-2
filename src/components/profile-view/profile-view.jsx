@@ -25,7 +25,9 @@ export class ProfileView extends React.Component {
 
   //getFavorites(token){
     //const {profile} = this.props;
-    //axios.get(`https://my-movie-108.herokuapp.com/users/${profile.username}`)
+    //axios.get(`https://my-movie-108.herokuapp.com/users/${profile.username}`, {
+      //  headers: { Authorization: `Bearer ${token}` }
+    //})
   //}
 
   onUsernameChange(event){
@@ -103,7 +105,7 @@ export class ProfileView extends React.Component {
     const { profile, token } = this.props;
     return (
       <div>
-      <p>{profile.favorites.title}</p>
+      <p>{profile.favorites}</p>
       <Form>
         <Form.Group controlId="formBasicUsername">
           <Form.Label>Username</Form.Label>
