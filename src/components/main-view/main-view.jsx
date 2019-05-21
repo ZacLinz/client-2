@@ -103,7 +103,11 @@ export class MainView extends React.Component {
           render={() => {
             if (!user)
               return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-            return movies.map(m => <MovieCard key={m._id} movie={m} />);
+            return movies.map(m => <MovieCard key={m._id}
+              movie={m}
+              username={localStorage.getItem("user")}
+              token={localStorage.getItem("token")}
+            />);
           }}
         />
 

@@ -1,18 +1,18 @@
 import React from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
-import Form from 'react-bootstrap/Form';
+import Form from "react-bootstrap/Form";
 import "./profile-view.scss";
 
 export class ProfileView extends React.Component {
   constructor() {
     super();
     this.state = {
-      username:'',
-      email:'',
-      birthday:'',
-      password:'',
-      confirmPassword:'',
+      username: "",
+      email: "",
+      birthday: "",
+      password: "",
+      confirmPassword: ""
     };
 
     this.onUsernameChange = this.onUsernameChange.bind(this);
@@ -24,43 +24,43 @@ export class ProfileView extends React.Component {
   }
 
   //getFavorites(token){
-    //const {profile} = this.props;
-    //axios.get(`https://my-movie-108.herokuapp.com/users/${profile.username}`, {
-      //  headers: { Authorization: `Bearer ${token}` }
-    //})
+  //const {profile} = this.props;
+  //axios.get(`https://my-movie-108.herokuapp.com/users/${profile.username}`, {
+  //  headers: { Authorization: `Bearer ${token}` }
+  //})
   //}
 
-  onUsernameChange(event){
+  onUsernameChange(event) {
     this.setState({
       username: event.target.value
-    })
+    });
   }
-  onEmailChange(event){
+  onEmailChange(event) {
     this.setState({
       email: event.target.value
-    })
+    });
   }
-  onBirthdayChange(event){
+  onBirthdayChange(event) {
     this.setState({
       birthday: event.target.value
-    })
+    });
   }
-  onPasswordChange(event){
+  onPasswordChange(event) {
     this.setState({
       password: event.target.value
-    })
+    });
   }
-  onConfirmPasswordChange(event){
+  onConfirmPasswordChange(event) {
     this.setState({
       confirmPassword: event.target.value
-    })
+    });
   }
 
-  handleUpdate(token){
-    const {profile} = this.props;
-    const {username, email, birthday, password, confirmPassword } = this.state;
+  handleUpdate(token) {
+    const { profile } = this.props;
+    const { username, email, birthday, password, confirmPassword } = this.state;
     axios({
-      method: 'put',
+      method: "put",
       url: `https://my-movie-108.herokuapp.com/users/${profile.username}`,
       headers: {
         Authorization: `Bearer ${token}`
@@ -73,14 +73,14 @@ export class ProfileView extends React.Component {
         confirmPassword: confirmPassword
       }
     })
-    .then(response =>{
-      const data = response.data;
-      console.log(data);
-      localStorage.setItem("user", data.username);
-    })
-    .catch(e => {
-      console.log('error updating the user')
-    });
+      .then(response => {
+        const data = response.data;
+        console.log(data);
+        localStorage.setItem("user", data.username);
+      })
+      .catch(e => {
+        console.log("error updating the user");
+      });
   }
 
   handleDelete(token) {
@@ -105,32 +105,61 @@ export class ProfileView extends React.Component {
     const { profile, token } = this.props;
     return (
       <div>
-      <p>{profile.favorites}</p>
-      <Form>
-        <Form.Group controlId="formBasicUsername">
-          <Form.Label>Username</Form.Label>
-          <Form.Control type="username" value={this.state.username} onChange={this.onUsernameChange} placeholder="Enter username to update" />
-        </Form.Group>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control type="email" value={this.state.email} onChange={this.onEmailChange} placeholder="Enter New Email" />
-        </Form.Group>
-        <Form.Group controlId="formBasicBirthday">
-          <Form.Label>Birthday</Form.Label>
-          <Form.Control type="date" value={this.state.birthday} onChange={this.onBirthdayChange} placeholder="yyyy-mm-dd" />
-        </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" value={this.state.password} onChange={this.onPasswordChange} placeholder="Enter New Password" />
-        </Form.Group>
-        <Form.Group controlId="formBasicConfirmPassword">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control type="password" value={this.state.confirmPassword} onChange={this.onConfirmPasswordChange} placeholder="Re-enter Password" />
-        </Form.Group>
-        <Button variant="primary" type="submit" onClick={() => this.handleUpdate(token)}>
-          Update Profile
-        </Button>
-      </Form>
+        <p>{profile.favorites}</p>
+        <Form>
+          <Form.Group controlId="formBasicUsername">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="username"
+              value={this.state.username}
+              onChange={this.onUsernameChange}
+              placeholder="Enter username to update"
+            />
+          </Form.Group>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Email Address</Form.Label>
+            <Form.Control
+              type="email"
+              value={this.state.email}
+              onChange={this.onEmailChange}
+              placeholder="Enter New Email"
+            />
+          </Form.Group>
+          <Form.Group controlId="formBasicBirthday">
+            <Form.Label>Birthday</Form.Label>
+            <Form.Control
+              type="date"
+              value={this.state.birthday}
+              onChange={this.onBirthdayChange}
+              placeholder="yyyy-mm-dd"
+            />
+          </Form.Group>
+          <Form.Group controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              value={this.state.password}
+              onChange={this.onPasswordChange}
+              placeholder="Enter New Password"
+            />
+          </Form.Group>
+          <Form.Group controlId="formBasicConfirmPassword">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              type="password"
+              value={this.state.confirmPassword}
+              onChange={this.onConfirmPasswordChange}
+              placeholder="Re-enter Password"
+            />
+          </Form.Group>
+          <Button
+            variant="primary"
+            type="submit"
+            onClick={() => this.handleUpdate(token)}
+          >
+            Update Profile
+          </Button>
+        </Form>
         <Button className="submit" onClick={() => this.handleDelete(token)}>
           De-register {profile.username}?
         </Button>
