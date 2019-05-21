@@ -12,25 +12,28 @@ import { Link } from "react-router-dom";
 
 export class MovieCard extends React.Component {
   //constructor(){
-    //super();
+  //super();
   //}
 
   addToFavorites(token) {
-    const { movie } = this.props;
-    const {username} = localStorage.getItem("user");
-    axios.post(`https://my-movie-108.herokuapp.com/users/${username}/favorites/${movie._id}`,{
-      headers: { Authorization: `Bearer ${token}`}
-    })
-    .then(res => {
-      console.log(res)
-    })
+    const { movie, username } = this.props;
+    console.log({ token });
+    axios
+      .post(
+        `https://my-movie-108.herokuapp.com/users/${username}/favorites/${
+          movie._id
+        }`,
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      )
+      .then(res => {
+        console.log(res);
+      });
   }
 
-
   render() {
-    const { token } = localStorage.getItem("token");
-    const { movie } = this.props;
-
+    const { movie, token } = this.props;
     return (
       <Card style={{ width: "16rem" }}>
         <Card.Img variant="top" src={movie.ImagePath} />
@@ -40,7 +43,9 @@ export class MovieCard extends React.Component {
           <Link to={`/movies/${movie._id}`}>
             <Button variant="link">Open</Button>
           </Link>
-          <Button variant="link" onClick={()=>this.addToFavorites(token)}>Add to Favorites</Button>
+          <Button variant="submit" onClick={() => this.addToFavorites(token)}>
+            Add to Favorites
+          </Button>
           <Link to={`directors/${movie.director.name}`}>
             <Card.Text>{movie.director.name}</Card.Text>
           </Link>
