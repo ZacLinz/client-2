@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Container from 'react-bootstrap/Container';
+import Card from 'react-bootstrap/Card';
 import "./profile-view.scss";
 
 export class ProfileView extends React.Component {
@@ -110,12 +110,32 @@ export class ProfileView extends React.Component {
 
   render() {
     if (!this.props.profile) return "loading profile...";
-    const { profile, token} = this.props;
+    const { profile, movie, token} = this.props;
+    console.log({profile, movie})
+
+    if (movie._id === profile.find(profile.favorites)){
+      this.setState({
+        favorites: this.state.favorites.concat(movie)
+      })
+    };
+    //const favorites = movies.filter(function(movie){
+    //  return movie._id === profile.favorites;
+  //  });
+    //function isFavorite(movie){
+    //  return movie._id = profile.favorites
+  //  };
+
+  //  const favorites = movies.filter(isFavorite);
+    const {favorites} = this.state;
+    console.log({favorites});
+
     return (
       <div>
-        <Container>
-          <p>{profile.favorites}</p>
-        </Container>
+        <Card>
+          <Card.Body>
+            <Card.Text>{favorites.title}</Card.Text>
+          </Card.Body>
+        </Card>
         <Form>
           <Form.Group controlId="formBasicUsername">
             <Form.Label>Username</Form.Label>

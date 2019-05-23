@@ -87,7 +87,6 @@ export class MainView extends React.Component {
 
   render() {
     const { movies, user, users} = this.state;
-    console.log({users});
     if (!movies) return <div className="main-view" />;
 
     return (
@@ -121,7 +120,7 @@ export class MainView extends React.Component {
                   users && users.find(u => (u.username === match.params.username))
                 }
                 token={localStorage.getItem("token")}
-                favorites={users.favorites}
+                movie = {movies}
               />
             );
           }}
