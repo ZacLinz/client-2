@@ -120,7 +120,7 @@ export class MainView extends React.Component {
                   users && users.find(u => (u.username === match.params.username))
                 }
                 token={localStorage.getItem("token")}
-                movie = {movies}
+                movies = {movies}
               />
             );
           }}

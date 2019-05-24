@@ -13,8 +13,8 @@ export class ProfileView extends React.Component {
       email: "",
       birthday: "",
       password: "",
-      confirmPassword: "",
-      favorites: []
+      confirmPassword: ""
+      //favorites: []
     };
 
     this.onUsernameChange = this.onUsernameChange.bind(this);
@@ -25,17 +25,12 @@ export class ProfileView extends React.Component {
     this.handleUpdate = this.handleUpdate.bind(this);
   }
 
-//  getFavorites(token){
-//  const {profile} = this.props;
-//  axios.get(`https://my-movie-108.herokuapp.com/users/${profile.username}`, {
-//    headers: { Authorization: `Bearer ${token}` }
-//  })
-//  .then(response => {
-//    this.setState({
-//      favorites: response.data.favorites
-//    })
-//  })
-//  }
+//  showFavorites(){
+//  const {profile, movies} = this.props;
+//  const movieId = movies.map(m => m._id)
+//  for (i)
+
+
 
   onUsernameChange(event) {
     this.setState({
@@ -107,33 +102,35 @@ export class ProfileView extends React.Component {
       });
   }
 
-
   render() {
-    if (!this.props.profile) return "loading profile...";
-    const { profile, movie, token} = this.props;
-    console.log({profile, movie})
 
-    if (movie._id === profile.find(profile.favorites)){
-      this.setState({
-        favorites: this.state.favorites.concat(movie)
-      })
-    };
-    //const favorites = movies.filter(function(movie){
-    //  return movie._id === profile.favorites;
-  //  });
+    if (!this.props.profile) return "loading profile...";
+
+    const { profile, movies, token} = this.props;
+  //  const favorite = [];
+
+  //  const isFavorite = profile.favorites.find(id => id === movies._id)
+    //if (isFavorite === movies._id){
+//      favorite.push(isFavorite);
+//    }
+//      console.log(favorite)
+
+  //  if (movies._id === profile.find(profile.favorites)){
+    //  this.setState({
+    //    favorites: this.state.favorites.concat(movies)
+//})
+  //  };
     //function isFavorite(movie){
     //  return movie._id = profile.favorites
   //  };
 
   //  const favorites = movies.filter(isFavorite);
-    const {favorites} = this.state;
-    console.log({favorites});
 
     return (
       <div>
         <Card>
           <Card.Body>
-            <Card.Text>{favorites.title}</Card.Text>
+            <Card.Text>{favoriteMovies.title}</Card.Text>
           </Card.Body>
         </Card>
         <Form>
