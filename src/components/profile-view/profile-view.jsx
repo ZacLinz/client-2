@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Card from 'react-bootstrap/Card';
+import Card from "react-bootstrap/Card";
 import "./profile-view.scss";
 
 export class ProfileView extends React.Component {
@@ -24,8 +24,6 @@ export class ProfileView extends React.Component {
     this.onConfirmPasswordChange = this.onConfirmPasswordChange.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
   }
-
-
 
   onUsernameChange(event) {
     this.setState({
@@ -97,60 +95,76 @@ export class ProfileView extends React.Component {
       });
   }
 
-  removeFavorite(token){
-    const {favorites} = this.state;
-    const {profile} = this.props;
-    axios.delete(`https://my-movie-108.herokuapp.com/users/${profile.username}/favorites/${favorites}`)
+  removeFavorite(token) {
+    const { favorites } = this.state;
+    const { profile } = this.props;
+    console.log(favorites)
+    axios.delete(
+      `https://my-movie-108.herokuapp.com/users/${profile.username}/favorites/${
+        favorites._id}`,
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
-  componentDidMount(){
-    const {profile, movies} = this.props;
-    const isFavorite = movies.filter(movie => profile.favorites.find(id => id === movie._id))
+
+  componentDidMount() {
+    const { profile, movies } = this.props;
+    const isFavorite = movies.filter(movie =>
+      profile.favorites.find(id => id === movie._id)
+    );
     this.setState({
       favorites: isFavorite
     });
-  };
+  }
 
   render() {
-
     if (!this.props.profile) return "loading profile...";
 
-    const { profile, movies, token} = this.props;
-    const {favorites} = this.state
-    console.log(profile.favorites)
-    const displayFavorites = favorites.map(movie =>
+    const { profile, movies, token } = this.props;
+    const { favorites } = this.state;
+
+    const displayFavorites = favorites.map(movie => (
       <Card key={movie._id}>
         <Card.Text>{movie.title}</Card.Text>
+        <Button className="submit" onClick={() => this.removeFavorite(token)}>
+          Remove from favorites?
+        </Button>
       </Card>
-      )
+    ));
 
     //const isFavorite = movies.filter(movie => profile.favorites.find(id => id === movie._id))
-  //  const favorites = isFavorite.map(m => m.title)
+    //  const favorites = isFavorite.map(m => m.title)
 
-  //  const isFavorite = profile.favorites.find(id => id === movies._id)
+    //  const isFavorite = profile.favorites.find(id => id === movies._id)
     //if (isFavorite === movies._id){
-//      favorite.push(isFavorite);
-//    }
-//      console.log(favorite)
+    //      favorite.push(isFavorite);
+    //    }
+    //      console.log(favorite)
 
-  //  if (movies._id === profile.find(profile.favorites)){
+    //  if (movies._id === profile.find(profile.favorites)){
     //  this.setState({
     //    favorites: this.state.favorites.concat(movies)
-//})
-  //  };
+    //})
+    //  };
     //function isFavorite(movie){
     //  return movie._id = profile.favorites
-  //  };
+    //  };
 
-  //  const favorites = movies.filter(isFavorite);
+    //  const favorites = movies.filter(isFavorite);
 
     return (
       <div>
         <h1>Favorites</h1>
-        <div>
-          {displayFavorites}
-        </div>
+        <div>{displayFavorites}</div>
         <Form>
+          <h1> Update information form </h1>
           <Form.Group controlId="formBasicUsername">
             <Form.Label>Username</Form.Label>
             <Form.Control
