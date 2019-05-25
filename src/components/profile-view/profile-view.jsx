@@ -13,8 +13,8 @@ export class ProfileView extends React.Component {
       email: "",
       birthday: "",
       password: "",
-      confirmPassword: ""
-      //favorites: []
+      confirmPassword: "",
+      favorites: []
     };
 
     this.onUsernameChange = this.onUsernameChange.bind(this);
@@ -97,14 +97,35 @@ export class ProfileView extends React.Component {
       });
   }
 
+  removeFavorite(token){
+    const {favorites} = this.state;
+    const {profile} = this.props;
+    axios.delete(`https://my-movie-108.herokuapp.com/users/${profile.username}/favorites/${favorites}`)
+  }
+
+  componentDidMount(){
+    const {profile, movies} = this.props;
+    const isFavorite = movies.filter(movie => profile.favorites.find(id => id === movie._id))
+    this.setState({
+      favorites: isFavorite
+    });
+  };
+
   render() {
 
     if (!this.props.profile) return "loading profile...";
 
     const { profile, movies, token} = this.props;
+    const {favorites} = this.state
     console.log(profile.favorites)
-    const isFavorite = movies.filter(movie => profile.favorites.find(id => id === movie._id))
-    const favorites = isFavorite.map(m => m.title)
+    const displayFavorites = favorites.map(movie =>
+      <Card key={movie._id}>
+        <Card.Text>{movie.title}</Card.Text>
+      </Card>
+      )
+
+    //const isFavorite = movies.filter(movie => profile.favorites.find(id => id === movie._id))
+  //  const favorites = isFavorite.map(m => m.title)
 
   //  const isFavorite = profile.favorites.find(id => id === movies._id)
     //if (isFavorite === movies._id){
@@ -125,14 +146,10 @@ export class ProfileView extends React.Component {
 
     return (
       <div>
-        <Card>
-          <Card.Body>
-            <Card.Text>{favorites}</Card.Text>
-            <Button className="submit" onClick={() => this.removeFavorite(token)}>
-              Remove this Favorite?
-            </Button>
-          </Card.Body>
-        </Card>
+        <h1>Favorites</h1>
+        <div>
+          {displayFavorites}
+        </div>
         <Form>
           <Form.Group controlId="formBasicUsername">
             <Form.Label>Username</Form.Label>
