@@ -25,11 +25,6 @@ export class ProfileView extends React.Component {
     this.handleUpdate = this.handleUpdate.bind(this);
   }
 
-//  showFavorites(){
-//  const {profile, movies} = this.props;
-//  const movieId = movies.map(m => m._id)
-//  for (i)
-
 
 
   onUsernameChange(event) {
@@ -107,7 +102,9 @@ export class ProfileView extends React.Component {
     if (!this.props.profile) return "loading profile...";
 
     const { profile, movies, token} = this.props;
-  //  const favorite = [];
+    console.log(profile.favorites)
+    const isFavorite = movies.filter(movie => profile.favorites.find(id => id === movie._id))
+    const favorites = isFavorite.map(m => m.title)
 
   //  const isFavorite = profile.favorites.find(id => id === movies._id)
     //if (isFavorite === movies._id){
@@ -130,7 +127,10 @@ export class ProfileView extends React.Component {
       <div>
         <Card>
           <Card.Body>
-            <Card.Text>{favoriteMovies.title}</Card.Text>
+            <Card.Text>{favorites}</Card.Text>
+            <Button className="submit" onClick={() => this.removeFavorite(token)}>
+              Remove this Favorite?
+            </Button>
           </Card.Body>
         </Card>
         <Form>
