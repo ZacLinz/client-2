@@ -126,7 +126,7 @@ export class ProfileView extends React.Component {
   render() {
     if (!this.props.profile) return "loading profile...";
 
-    const { profile, movies, token } = this.props;
+    const { profile, token } = this.props;
     const { favorites } = this.state;
 
     const displayFavorites = favorites.map(movie => (
