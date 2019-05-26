@@ -95,13 +95,12 @@ export class ProfileView extends React.Component {
       });
   }
 
-  removeFavorite(token) {
+  removeFavorite(id, token) {
     const { favorites } = this.state;
     const { profile } = this.props;
     console.log(favorites)
     axios.delete(
-      `https://my-movie-108.herokuapp.com/users/${profile.username}/favorites/${
-        favorites._id}`,
+      `https://my-movie-108.herokuapp.com/users/${profile.username}/favorites/${id}`,
       {
         headers: { Authorization: `Bearer ${token}` }
       })
@@ -133,7 +132,7 @@ export class ProfileView extends React.Component {
     const displayFavorites = favorites.map(movie => (
       <Card key={movie._id}>
         <Card.Text>{movie.title}</Card.Text>
-        <Button className="submit" onClick={() => this.removeFavorite(token)}>
+        <Button className="submit"  onClick={() => this.removeFavorite(movie._id, token)}>
           Remove from favorites?
         </Button>
       </Card>
