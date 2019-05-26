@@ -40,8 +40,8 @@ export class MovieView extends React.Component {
             Genre:{" "}
           </Col>
           <Col className="value">{movie.genre.name}</Col>
-          <Link to={`/movies/genres/${movie.genre.name}`}>
-            <Button variant="link">Click here</Button>
+          <Link to={`/genres/${movie.genre.name}`}>
+            <Button className="submit" variant="link">Click here</Button>
           </Link>
         </Row>
         <Row className="movie-director">
@@ -50,7 +50,7 @@ export class MovieView extends React.Component {
           </Col>
           <Col className="value">{movie.director.name}</Col>
           <Link to={`/directors/${movie.director.name}`}>
-            <Button variant="link">Click here</Button>
+            <Button className = "submit" variant="link">Click here</Button>
           </Link>
         </Row>
       </Container>
