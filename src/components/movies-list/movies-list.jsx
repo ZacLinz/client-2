@@ -9,7 +9,7 @@ const mapStateToProps = state => {
 
   let moviesToShow = movies.concat().sort((a, b) => {
     if (a[sortColumn] < b[sortColumn]) return -1;
-    if (a[sortColumn] >b[sortColumn]) return 1;
+    if (a[sortColumn] > b[sortColumn]) return 1;
     return 0;
   })
 
