@@ -1,23 +1,19 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { connect } from 'react-redux';
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 //import Card from 'react-bootstrap/Card';
-import Button from "react-bootstrap/Button";
+//import Button from "react-bootstrap/Button";
 //import Form from 'react-bootstrap/Form';
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
-export class MovieView extends React.Component {
-  constructor() {
-    super();
+function MovieView(props) {
+  const { movies, movieId } = props
 
-    this.state = {};
-  }
-  render() {
-    const { movie } = this.props;
-
-    if (!movie) return null;
+    if (!movies || !movies.length) return null;
+                                    //should just be double = not triple
+    const movie = movies.find(m => m._id == movieId)
 
     return (
       <Container className="movie-view">
@@ -35,31 +31,7 @@ export class MovieView extends React.Component {
           <Col className="value">{movie.description}</Col>
         </Row>
 
-        <Row className="movie-genre">
-          <Col lg="2" className="label">
-            Genre:{" "}
-          </Col>
-          <Col className="value">{movie.genre.name}</Col>
-          <Link to={`/genres/${movie.genre.name}`}>
-            <Button className="submit" variant="link">Click here</Button>
-          </Link>
-        </Row>
-        <Row className="movie-director">
-          <Col lg="2" className="label">
-            Director:{" "}
-          </Col>
-          <Col className="value">{movie.director.name}</Col>
-          <Link to={`/directors/${movie.director.name}`}>
-            <Button className = "submit" variant="link">Click here</Button>
-          </Link>
-        </Row>
       </Container>
     );
   }
-}
-
-MovieView.propTypes = {
-  movie: PropTypes.shape({
-    title: PropTypes.string
-  }).isRequired
-};
+export default connect(({movies}) => ({movies}))(MovieView);

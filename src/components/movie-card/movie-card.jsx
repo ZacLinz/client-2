@@ -5,10 +5,10 @@ import PropTypes from "prop-types";
 //import Row from 'react-bootstrap/Row';
 //import Col from 'react-bootstrap/Col';
 import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
+//import Button from "react-bootstrap/Button";
 //import Form from 'react-bootstrap/Form';
 
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 export class MovieCard extends React.Component {
   //constructor(){
@@ -41,18 +41,8 @@ export class MovieCard extends React.Component {
         <Card.Body>
           <Card.Title>{movie.title}</Card.Title>
           <Card.Text>{movie.description}</Card.Text>
-          <Link to={`/movies/${movie._id}`}>
-            <Button variant="link">Open</Button>
-          </Link>
-          <Button variant="submit" onClick={() => this.addToFavorites()}>
-            Add to Favorites
-          </Button>
-          <Link to={`directors/${movie.director.name}`}>
-            <Card.Text>{movie.director.name}</Card.Text>
-          </Link>
-          <Link to={`genres/${movie.genre.name}`}>
-            <Card.Text>{movie.genre.name}</Card.Text>
-          </Link>
+
+          
         </Card.Body>
       </Card>
     );

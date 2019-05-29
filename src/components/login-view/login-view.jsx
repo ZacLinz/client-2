@@ -9,7 +9,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "./login-view.scss";
 
-import { Link } from "react-router-dom";
+//import { Link } from "react-router-dom";
 
 export function LoginView(props) {
   const [username, setUsername] = useState("");
@@ -62,12 +62,7 @@ export function LoginView(props) {
       >
         Submit
       </Button>
-      <div>
-        <p>Not yet registered?</p>
-        <Link to={`/register`}>
-          <Button className="submit">Go to registration</Button>
-        </Link>
-      </div>
+
     </Form>
   );
 }
