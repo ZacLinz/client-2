@@ -15,6 +15,6 @@ export function setSortColumn(value){
   return { type: SET_SORT_COLUMN, value };
 }
 
-export function setUser(value){
+export function setUsers(value){
   return { type: SET_USER, value};
 }

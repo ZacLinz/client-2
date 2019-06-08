@@ -138,25 +138,6 @@ export class ProfileView extends React.Component {
       </Card>
     ));
 
-    //const isFavorite = movies.filter(movie => profile.favorites.find(id => id === movie._id))
-    //  const favorites = isFavorite.map(m => m.title)
-
-    //  const isFavorite = profile.favorites.find(id => id === movies._id)
-    //if (isFavorite === movies._id){
-    //      favorite.push(isFavorite);
-    //    }
-    //      console.log(favorite)
-
-    //  if (movies._id === profile.find(profile.favorites)){
-    //  this.setState({
-    //    favorites: this.state.favorites.concat(movies)
-    //})
-    //  };
-    //function isFavorite(movie){
-    //  return movie._id = profile.favorites
-    //  };
-
-    //  const favorites = movies.filter(isFavorite);
 
     return (
       <div>

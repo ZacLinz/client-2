@@ -7,7 +7,6 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 //import Form from 'react-bootstrap/Form';
 import { Link } from "react-router-dom";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function MovieView(props) {
   const { movies, movieId } = props;
@@ -17,7 +16,6 @@ function MovieView(props) {
   const movie = movies.find(m => m._id == movieId);
 
   return (
-    <Router>
     <Container className="movie-view">
       <img className="movie-poster" src={movie.ImagePath} />
       <Row className="movie-title">
@@ -56,7 +54,6 @@ function MovieView(props) {
         </Link>
       </Row>
     </Container>
-    </Router>
   );
 }
 export default connect(({ movies }) => ({ movies }))(MovieView);
