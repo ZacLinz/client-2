@@ -19,7 +19,7 @@ import { LoginView } from "../login-view/login-view";
 import MovieView from "../movie-view/movie-view";
 import { RegistrationView } from "../registration-view/registration-view";
 import { DirectorView } from "../director-view/director-view";
-import { GenreView } from "../genre-view/genre-view";
+import GenreView from "../genre-view/genre-view";
 import { ProfileView } from "../profile-view/profile-view";
 
 export class MainView extends React.Component {
@@ -87,7 +87,7 @@ export class MainView extends React.Component {
 
   render() {
     const { user } = this.state;
-    const {movies, users} = this.props
+    const { movies, users} = this.props
     if (!user) return <LoginView onLoggedIn={this.onLoggedIn} />;
 
     return (
@@ -140,17 +140,7 @@ export class MainView extends React.Component {
           />
           <Route
             path="/genres/:name"
-            render={({ match }) => {
-              if (!movies || !movies.length)
-                return <div className="main-view" />;
-              return (
-                <GenreView
-                  genre={
-                    movies.find(m => m.genre.name === match.params.name).genre
-                  }
-                />
-              );
-            }}
+            render={({ match }) => <GenreView genre={match.params.name} />}
           />
 
           <Route path="/register" render={() => <RegistrationView />} />

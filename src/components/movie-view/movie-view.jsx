@@ -12,9 +12,9 @@ function MovieView(props) {
   const { movies, movieId } = props;
 
   if (!movies || !movies.length) return null;
-  //should just be double = not triple
-  const movie = movies.find(m => m._id == movieId);
 
+  const movie = movies.find(m => m._id == movieId);
+  console.log(movie)
   return (
     <Container className="movie-view">
       <img className="movie-poster" src={movie.ImagePath} />
