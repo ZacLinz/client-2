@@ -18,7 +18,7 @@ import { LoginView } from "../login-view/login-view";
 //import { MovieCard } from "../movie-card/movie-card";
 import MovieView from "../movie-view/movie-view";
 import { RegistrationView } from "../registration-view/registration-view";
-import { DirectorView } from "../director-view/director-view";
+import DirectorView from "../director-view/director-view";
 import GenreView from "../genre-view/genre-view";
 import { ProfileView } from "../profile-view/profile-view";
 
@@ -87,7 +87,7 @@ export class MainView extends React.Component {
 
   render() {
     const { user } = this.state;
-    const { movies, users} = this.props
+    const { users} = this.props
     if (!user) return <LoginView onLoggedIn={this.onLoggedIn} />;
 
     return (
@@ -117,7 +117,6 @@ export class MainView extends React.Component {
                     users.find(u => u.username === match.params.username)
                   }
                   token={localStorage.getItem("token")}
-                  movies={movies}
                 />
               );
             }}
@@ -125,18 +124,7 @@ export class MainView extends React.Component {
 
           <Route
             path="/directors/:name"
-            render={({ match }) => {
-              if (!movies || !movies.length)
-                return <div className="main-view" />;
-              return (
-                <DirectorView
-                  director={
-                    movies.find(m => m.director.name === match.params.name)
-                      .director
-                  }
-                />
-              );
-            }}
+            render={({ match }) => <DirectorView director={match.params.name} />}
           />
           <Route
             path="/genres/:name"
