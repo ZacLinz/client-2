@@ -4,8 +4,8 @@ import axios from "axios";
 import { connect } from "react-redux";
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
-
-import { setMovies } from "../../actions/actions";
+//import { withRouter } from "react-router-dom";
+import { setMovies, setUsers } from "../../actions/actions";
 
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
@@ -20,7 +20,9 @@ import MovieView from "../movie-view/movie-view";
 import { RegistrationView } from "../registration-view/registration-view";
 import DirectorView from "../director-view/director-view";
 import GenreView from "../genre-view/genre-view";
-import { ProfileView } from "../profile-view/profile-view";
+import ProfileView from "../profile-view/profile-view";
+
+const actions = { setMovies, setUsers}
 
 export class MainView extends React.Component {
   constructor() {
@@ -87,7 +89,6 @@ export class MainView extends React.Component {
 
   render() {
     const { user } = this.state;
-    const { users} = this.props
     if (!user) return <LoginView onLoggedIn={this.onLoggedIn} />;
 
     return (
@@ -109,17 +110,7 @@ export class MainView extends React.Component {
           />
           <Route
             path="/users/:username"
-            render={({ match }) => {
-              return (
-                <ProfileView
-                  profile={
-                    users &&
-                    users.find(u => u.username === match.params.username)
-                  }
-                  token={localStorage.getItem("token")}
-                />
-              );
-            }}
+            render={({ match }) => <ProfileView profile={match.params.username}/>}
           />
 
           <Route
@@ -144,5 +135,5 @@ export class MainView extends React.Component {
 }
 export default connect(
   null,
-  { setMovies }
+  actions
 )(MainView);

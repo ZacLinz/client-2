@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import "./profile-view.scss";
+import { connect } from 'react-redux';
 
 export class ProfileView extends React.Component {
   constructor() {
@@ -98,7 +99,7 @@ export class ProfileView extends React.Component {
   removeFavorite(id, token) {
     const { favorites } = this.state;
     const { profile } = this.props;
-    console.log(favorites)
+    //console.log(favorites)
     axios.delete(
       `https://my-movie-108.herokuapp.com/users/${profile.username}/favorites/${id}`,
       {
@@ -205,3 +206,4 @@ export class ProfileView extends React.Component {
     );
   }
 }
+export default connect(({ users }) => ({ users }))(ProfileView)
