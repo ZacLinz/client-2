@@ -6,6 +6,10 @@ import Card from "react-bootstrap/Card";
 import "./profile-view.scss";
 import { connect } from 'react-redux';
 
+const mapStateToProps = state => {
+  const { profile, movies } = state;
+}
+
 export class ProfileView extends React.Component {
   constructor() {
     super();
@@ -206,4 +210,4 @@ export class ProfileView extends React.Component {
     );
   }
 }
-export default connect(({ users }) => ({ users }))(ProfileView)
+export default connect(mapStateToProps)(ProfileView)
