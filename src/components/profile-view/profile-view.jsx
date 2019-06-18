@@ -7,8 +7,11 @@ import "./profile-view.scss";
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
+  const token = localStorage.getItem('token')
+  const userProfile = localStorage.getItem('user')
   const { profile, movies } = state;
-  return { profile, movies };
+  const user = profile.find(u => u.username === userProfile)
+  return { profile, movies, user, token };
 }
 
 export class ProfileView extends React.Component {
@@ -58,11 +61,11 @@ export class ProfileView extends React.Component {
   }
 
   handleUpdate(token) {
-    const { profile } = this.props;
+    const { user } = this.props;
     const { username, email, birthday, password, confirmPassword } = this.state;
     axios({
       method: "put",
-      url: `https://my-movie-108.herokuapp.com/users/${profile.username}`,
+      url: `https://my-movie-108.herokuapp.com/users/${user.username}`,
       headers: {
         Authorization: `Bearer ${token}`
       },
@@ -85,10 +88,10 @@ export class ProfileView extends React.Component {
   }
 
   handleDelete(token) {
-    const { profile } = this.props;
+    const { user } = this.props;
     console.log(this.props);
     axios
-      .delete(`https://my-movie-108.herokuapp.com/users/${profile.username}`, {
+      .delete(`https://my-movie-108.herokuapp.com/users/${user.username}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       .then(res => {
@@ -103,10 +106,10 @@ export class ProfileView extends React.Component {
 
   removeFavorite(id, token) {
     const { favorites } = this.state;
-    const { profile } = this.props;
+    const { user } = this.props;
     //console.log(favorites)
     axios.delete(
-      `https://my-movie-108.herokuapp.com/users/${profile.username}/favorites/${id}`,
+      `https://my-movie-108.herokuapp.com/users/${user.username}/favorites/${id}`,
       {
         headers: { Authorization: `Bearer ${token}` }
       })
@@ -120,10 +123,10 @@ export class ProfileView extends React.Component {
 
 
   componentDidMount() {
-    const { profile, movies } = this.props;
-    console.log(profile)
+    const { movies, user } = this.props;
+    console.log(user)
     const isFavorite = movies.filter(movie =>
-      profile.favorites.find(id => id === movie._id)
+      user.favorites.find(id => id === movie._id)
     );
     this.setState({
       favorites: isFavorite
@@ -133,7 +136,7 @@ export class ProfileView extends React.Component {
   render() {
     if (!this.props.profile) return "loading profile...";
 
-    const { profile, token } = this.props;
+    const { user, token } = this.props;
     const { favorites } = this.state;
 
     const displayFavorites = favorites.map(movie => (
@@ -206,7 +209,7 @@ export class ProfileView extends React.Component {
           </Button>
         </Form>
         <Button className="submit" onClick={() => this.handleDelete(token)}>
-          De-register {profile.username}?
+          De-register {user.username}?
         </Button>
       </div>
     );

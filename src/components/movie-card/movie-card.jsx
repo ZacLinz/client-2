@@ -16,11 +16,13 @@ export class MovieCard extends React.Component {
   //}
 
   addToFavorites() {
-    const { movie, username, token } = this.props;
+    const { movie} = this.props;
+    const user = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
     console.log({ token });
     axios
       .post(
-        `https://my-movie-108.herokuapp.com/users/${username}/favorites/${
+        `https://my-movie-108.herokuapp.com/users/${user}/favorites/${
           movie._id
         }`,
         null,
