@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = state => {
   const { profile, movies } = state;
+  return { profile, movies };
 }
 
 export class ProfileView extends React.Component {
@@ -120,6 +121,7 @@ export class ProfileView extends React.Component {
 
   componentDidMount() {
     const { profile, movies } = this.props;
+    console.log(profile)
     const isFavorite = movies.filter(movie =>
       profile.favorites.find(id => id === movie._id)
     );
