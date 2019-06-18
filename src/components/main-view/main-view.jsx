@@ -66,9 +66,7 @@ export class MainView extends React.Component {
         headers: { Authorization: `Bearer ${token}` }
       })
       .then(response => {
-        this.setState({
-          users: response.data
-        });
+        this.props.setUsers(response.data);
       })
       .catch(function(error) {
         console.log(error);
@@ -110,7 +108,7 @@ export class MainView extends React.Component {
           />
           <Route
             path="/users/:username"
-            render={({ match }) => <ProfileView profile={match.params.username}/>}
+            render={({ match }) => <ProfileView profile={match.params._id}/>}
           />
 
           <Route
