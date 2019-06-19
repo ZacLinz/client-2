@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { connect } from "react-redux";
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 //import { withRouter } from "react-router-dom";
 import { setMovies, setUsers } from "../../actions/actions";
 
@@ -22,7 +22,7 @@ import DirectorView from "../director-view/director-view";
 import GenreView from "../genre-view/genre-view";
 import ProfileView from "../profile-view/profile-view";
 
-const actions = { setMovies, setUsers}
+const actions = { setMovies, setUsers };
 
 export class MainView extends React.Component {
   constructor() {
@@ -97,30 +97,41 @@ export class MainView extends React.Component {
           </Nav.Item>
         </Nav>
         <div className="main-view">
-          <Route
-            exact
-            path="/"
-            render={() => {
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => {
+                if (!user)
+                  return (
+                    <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                  );
+                return <MoviesList />;
+              }}
+            />
+            <Route path="/register" render={() => {
               if (!user)
-                return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-              return <MoviesList />;
-            }}
-          />
+                return (
+                  <RegistrationView/>
+                );
+              }}
+            />
+          </Switch>
           <Route
             path="/users/:username"
-            render={({ match }) => <ProfileView profile={match.params._id}/>}
+            render={({ match }) => <ProfileView profile={match.params._id} />}
           />
 
           <Route
             path="/directors/:name"
-            render={({ match }) => <DirectorView director={match.params.name} />}
+            render={({ match }) => (
+              <DirectorView director={match.params.name} />
+            )}
           />
           <Route
             path="/genres/:name"
             render={({ match }) => <GenreView genre={match.params.name} />}
           />
-
-          <Route path="/register" render={() => <RegistrationView />} />
 
           <Route
             path="/movies/:movieId"
