@@ -39,7 +39,8 @@ export class MovieCard extends React.Component {
   render() {
     const { movie } = this.props;
     return (
-      <Card style={{ width: "16rem" }}>
+      <div className= "d-flex justify-content-center">
+      <Card  className= "movie-card" style={{ width: "32rem" }}>
         <Card.Img variant="top" src={movie.ImagePath} />
         <Card.Body>
           <Card.Title>{movie.title}</Card.Title>
@@ -58,6 +59,7 @@ export class MovieCard extends React.Component {
           </Link>
         </Card.Body>
       </Card>
+      </div>
     );
   }
 }
