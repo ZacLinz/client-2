@@ -1,10 +1,11 @@
 import React from "react";
 import axios from "axios";
 
+import Button from "react-bootstrap/Button";
+
 import { connect } from "react-redux";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-//import { withRouter } from "react-router-dom";
 import { setMovies, setUsers } from "../../actions/actions";
 
 import Nav from "react-bootstrap/Nav";
@@ -12,7 +13,7 @@ import { Link } from "react-router-dom";
 
 import "./main-view.scss";
 
-//will need to make this one
+
 import MoviesList from "../movies-list/movies-list";
 import { LoginView } from "../login-view/login-view";
 //import { MovieCard } from "../movie-card/movie-card";
@@ -72,7 +73,11 @@ export class MainView extends React.Component {
         console.log(error);
       });
   }
+  logOut(){
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
 
+  }
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
@@ -87,13 +92,25 @@ export class MainView extends React.Component {
 
   render() {
     const { user } = this.state;
-    if (!user) return <LoginView onLoggedIn={this.onLoggedIn} />;
+    //if (!user) return <LoginView onLoggedIn={this.onLoggedIn} />;
 
     return (
       <Router>
         <Nav className="justify-content-end" activeKey="/">
           <Nav.Item>
-            <Link to={`/users/${user}`}>{user}</Link>
+            <Button className="submit">
+              <Link to={`/`}>Movie List</Link>
+            </Button>
+          </Nav.Item>
+          <Nav.Item>
+            <Button className="submit">
+              <Link to={`/users/${user}`}>{user}</Link>
+            </Button>
+          </Nav.Item>
+          <Nav.Item>
+            <Button className="submit" onClick={() => this.logOut()}>
+              <Link to={`/`}>Log Out</Link>
+            </Button>
           </Nav.Item>
         </Nav>
         <div className="main-view">
@@ -109,12 +126,7 @@ export class MainView extends React.Component {
                 return <MoviesList />;
               }}
             />
-            <Route path="/register" render={() => {
-              if (!user)
-                return (
-                  <RegistrationView/>
-                );
-              }}
+            <Route exact path="/register" render={() => <RegistrationView/>}
             />
           </Switch>
           <Route
