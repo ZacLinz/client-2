@@ -6,7 +6,7 @@ import Button from "react-bootstrap/Button";
 import { connect } from "react-redux";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { setMovies, setUsers } from "../../actions/actions";
+import { setMovies, setUsers, setFavorites } from "../../actions/actions";
 
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
@@ -23,7 +23,7 @@ import DirectorView from "../director-view/director-view";
 import GenreView from "../genre-view/genre-view";
 import ProfileView from "../profile-view/profile-view";
 
-const actions = { setMovies, setUsers };
+const actions = { setMovies, setUsers, setFavorites };
 
 export class MainView extends React.Component {
   constructor() {
@@ -31,7 +31,8 @@ export class MainView extends React.Component {
 
     this.state = {
       user: "",
-      token: ""
+      token: "",
+      favorites: []
     };
 
     this.onLoggedIn = this.onLoggedIn.bind(this);
@@ -73,6 +74,16 @@ export class MainView extends React.Component {
         console.log(error);
       });
   }
+
+  getFavorites(){
+    const { movies, user } = this.props;
+    const isFavorite = movies.filter(movie =>
+      user.favorites.find(id => id === movie._id)
+    );
+    this.props.setFavorites(isFavorite);
+  }
+
+
   logOut(){
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -88,6 +99,7 @@ export class MainView extends React.Component {
     localStorage.setItem("user", authData.user.username);
     this.getMovies(authData.token);
     this.getUsers(authData.token);
+    this.getFavorites();
   }
 
   render() {

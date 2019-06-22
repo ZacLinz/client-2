@@ -6,13 +6,14 @@ import Card from "react-bootstrap/Card";
 import "./profile-view.scss";
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
+import { setMovies, setFavorites } from "../../actions/actions";
 
 const mapStateToProps = state => {
   const token = localStorage.getItem('token')
   const userProfile = localStorage.getItem('user')
-  const { profile, movies} = state;
+  const { profile, movies, favorites} = state;
   const user = profile.find(u => u.username === userProfile)
-  return { profile, movies, user, token };
+  return { profile, movies, user, token, favorites };
 }
 
 export class ProfileView extends React.Component {
@@ -106,7 +107,7 @@ export class ProfileView extends React.Component {
   }
 
   removeFavorite(id, token) {
-    const { favorites } = this.state;
+    const { favorites } = this.props;
     const { user } = this.props;
     //console.log(favorites)
     axios.delete(
@@ -123,26 +124,27 @@ export class ProfileView extends React.Component {
       });
   }
 
+//  getFavorites(){
+//    const { movies, user } = this.props;
+//    const isFavorite = movies.filter(movie =>
+//      user.favorites.find(id => id === movie._id)
+//    );
+//    this.setFavorites(isFavorite);
+//  }
 
-  componentDidMount() {
-    const { movies, user } = this.props;
-    console.log(user)
-    const isFavorite = movies.filter(movie =>
-      user.favorites.find(id => id === movie._id)
-    );
-    this.setState({
-      favorites: isFavorite
-    });
-  }
+
+//  componentDidMount() {
+  ///  this.getFavorites()
+//  }
 
   render() {
     if (!this.props.profile || !this.props.user) return "loading profile...";
 
     const { user, token } = this.props;
-    const { favorites } = this.state;
-
+    const { favorites } = this.props;
+console.log(favorites)
     const displayFavorites = favorites.map(movie => (
-      <Card key={movie._id}>
+      <Card key={movie._id}  style={{ width: "35rem" }}>
         <Card.Text>{movie.title}</Card.Text>
         <Button className="submit"  onClick={() => this.removeFavorite(movie._id, token)}>
           Remove from favorites?
@@ -154,7 +156,7 @@ export class ProfileView extends React.Component {
     return (
       <div>
         <h1>Favorites</h1>
-        <div>{displayFavorites}</div>
+        <div className="d-flex justify-content-center">{displayFavorites}</div>
         <Form>
           <h1> Update information form </h1>
           <Form.Group controlId="formBasicUsername">
@@ -217,4 +219,4 @@ export class ProfileView extends React.Component {
     );
   }
 }
-export default connect(mapStateToProps)(ProfileView)
+export default connect(mapStateToProps, setFavorites)(ProfileView)
