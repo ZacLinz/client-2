@@ -30,6 +30,7 @@ export class MovieCard extends React.Component {
       )
       .then(res => {
         console.log(res);
+        window.location.reload();
       })
       .catch(error => {
         console.log(error);

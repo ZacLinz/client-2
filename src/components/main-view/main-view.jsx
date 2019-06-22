@@ -99,6 +99,11 @@ export class MainView extends React.Component {
         <Nav className="justify-content-end" activeKey="/">
           <Nav.Item>
             <Button className="submit">
+              <Link to={`/register`}>Register</Link>
+            </Button>
+          </Nav.Item>
+          <Nav.Item>
+            <Button className="submit">
               <Link to={`/`}>Movie List</Link>
             </Button>
           </Nav.Item>

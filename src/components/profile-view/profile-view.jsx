@@ -5,11 +5,12 @@ import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import "./profile-view.scss";
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 
 const mapStateToProps = state => {
   const token = localStorage.getItem('token')
   const userProfile = localStorage.getItem('user')
-  const { profile, movies } = state;
+  const { profile, movies} = state;
   const user = profile.find(u => u.username === userProfile)
   return { profile, movies, user, token };
 }
@@ -97,7 +98,7 @@ export class ProfileView extends React.Component {
       .then(res => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
-        console.log(res);
+        window.location.reload();
       })
       .catch(error => {
         console.log(error);
@@ -115,6 +116,7 @@ export class ProfileView extends React.Component {
       })
       .then(res => {
         console.log(res);
+        window.location.reload();
       })
       .catch(error => {
         console.log(error);
@@ -134,7 +136,7 @@ export class ProfileView extends React.Component {
   }
 
   render() {
-    if (!this.props.profile) return "loading profile...";
+    if (!this.props.profile || !this.props.user) return "loading profile...";
 
     const { user, token } = this.props;
     const { favorites } = this.state;
@@ -209,7 +211,7 @@ export class ProfileView extends React.Component {
           </Button>
         </Form>
         <Button className="submit" onClick={() => this.handleDelete(token)}>
-          De-register {user.username}?
+          <Link to={`/`}> De-register {user.username}?</Link>
         </Button>
       </div>
     );
