@@ -8,17 +8,22 @@ import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { setMovies, setFavorites } from "../../actions/actions";
 
+
 const mapStateToProps = state => {
   const token = localStorage.getItem('token')
   const userProfile = localStorage.getItem('user')
-  const { profile, movies, favorites} = state;
+  const { profile, movies } = state;
   const user = profile.find(u => u.username === userProfile)
+  const favorites = movies.filter(movie =>
+    user.favorites.find(id => id === movie._id)
+  );
+
   return { profile, movies, user, token, favorites };
 }
 
 export class ProfileView extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       username: "",
       email: "",
@@ -124,24 +129,12 @@ export class ProfileView extends React.Component {
       });
   }
 
-//  getFavorites(){
-//    const { movies, user } = this.props;
-//    const isFavorite = movies.filter(movie =>
-//      user.favorites.find(id => id === movie._id)
-//    );
-//    this.setFavorites(isFavorite);
-//  }
-
-
-//  componentDidMount() {
-  ///  this.getFavorites()
-//  }
-
   render() {
-    if (!this.props.profile || !this.props.user) return "loading profile...";
 
-    const { user, token } = this.props;
-    const { favorites } = this.props;
+
+    const { user, token, favorites } = this.props;
+
+    if (!this.props.profile || !this.props.user ) return "loading profile...";
 console.log(favorites)
     const displayFavorites = favorites.map(movie => (
       <Card key={movie._id}  style={{ width: "35rem" }}>
@@ -219,4 +212,4 @@ console.log(favorites)
     );
   }
 }
-export default connect(mapStateToProps, setFavorites)(ProfileView)
+export default connect(mapStateToProps)(ProfileView)

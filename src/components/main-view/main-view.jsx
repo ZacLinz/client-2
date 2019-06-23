@@ -87,7 +87,7 @@ export class MainView extends React.Component {
   logOut(){
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-
+    window.location.reload();
   }
   onLoggedIn(authData) {
     console.log(authData);
@@ -100,10 +100,12 @@ export class MainView extends React.Component {
     this.getMovies(authData.token);
     this.getUsers(authData.token);
     this.getFavorites();
+    console.log()
   }
 
   render() {
     const { user } = this.state;
+
     //if (!user) return <LoginView onLoggedIn={this.onLoggedIn} />;
 
     return (
