@@ -46,6 +46,7 @@ export class MainView extends React.Component {
       });
       this.getMovies(accessToken);
       this.getUsers(accessToken);
+      //this.getFavorites();
     }
   }
 
@@ -75,13 +76,16 @@ export class MainView extends React.Component {
       });
   }
 
-  getFavorites(){
-    const { movies, user } = this.props;
-    const isFavorite = movies.filter(movie =>
-      user.favorites.find(id => id === movie._id)
-    );
-    this.props.setFavorites(isFavorite);
-  }
+//  getFavorites(){
+//    const { movies, profile } = this.props;
+//    const userProfile = localStorage.getItem('user');
+//    const user = profile.find(u => u.username === userProfile)
+//    const isFavorite = movies.filter(movie =>
+//      user.favorites.find(id => id === movie._id)
+//    );
+//    this.props.setFavorites(isFavorite);
+//    console.log(isFavorite)
+//  }
 
 
   logOut(){
@@ -99,14 +103,12 @@ export class MainView extends React.Component {
     localStorage.setItem("user", authData.user.username);
     this.getMovies(authData.token);
     this.getUsers(authData.token);
-    this.getFavorites();
-    console.log()
+    //this.getFavorites();
   }
 
   render() {
     const { user } = this.state;
 
-    //if (!user) return <LoginView onLoggedIn={this.onLoggedIn} />;
 
     return (
       <Router>

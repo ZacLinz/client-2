@@ -16,7 +16,9 @@ const mapStateToProps = state => {
   const user = profile.find(u => u.username === userProfile)
   const favorites = movies.filter(movie =>
     user.favorites.find(id => id === movie._id)
-  );
+  )
+  ;
+
 
   return { profile, movies, user, token, favorites };
 }
@@ -96,7 +98,6 @@ export class ProfileView extends React.Component {
 
   handleDelete(token) {
     const { user } = this.props;
-    console.log(this.props);
     axios
       .delete(`https://my-movie-108.herokuapp.com/users/${user.username}`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -114,7 +115,6 @@ export class ProfileView extends React.Component {
   removeFavorite(id, token) {
     const { favorites } = this.props;
     const { user } = this.props;
-    //console.log(favorites)
     axios.delete(
       `https://my-movie-108.herokuapp.com/users/${user.username}/favorites/${id}`,
       {
@@ -129,13 +129,15 @@ export class ProfileView extends React.Component {
       });
   }
 
+
+
   render() {
 
 
     const { user, token, favorites } = this.props;
 
-    if (!this.props.profile || !this.props.user ) return "loading profile...";
-console.log(favorites)
+    if (!this.props.profile || !this.props.user || !this.props.favorites || !this.props.movies ) return "loading profile...";
+
     const displayFavorites = favorites.map(movie => (
       <Card key={movie._id}  style={{ width: "35rem" }}>
         <Card.Text>{movie.title}</Card.Text>
