@@ -11,16 +11,16 @@ import { setMovies, setFavorites } from "../../actions/actions";
 
 const mapStateToProps = state => {
   const token = localStorage.getItem('token')
-  const userProfile = localStorage.getItem('user')
-  const { profile, movies } = state;
-  const user = profile.find(u => u.username === userProfile)
-  const favorites = movies.filter(movie =>
-    user.favorites.find(id => id === movie._id)
+  const { profile, movies, favorites } = state;
+  const userProfile = localStorage.getItem('user');
+  const user = profile.find(u => u.username === userProfile);
+  const isFavorite = movies.filter(movie =>
+    favorites.find(id => id === movie._id)
   )
   ;
 
 
-  return { profile, movies, user, token, favorites };
+  return { profile, movies, token, user, favorites, isFavorite };
 }
 
 export class ProfileView extends React.Component {
@@ -87,9 +87,10 @@ export class ProfileView extends React.Component {
       }
     })
       .then(response => {
-        const data = response.data;
-        console.log(data);
-        localStorage.setItem("user", data.username);
+        //const data = response.data;
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.reload();
       })
       .catch(e => {
         console.log("error updating the user");
@@ -134,11 +135,11 @@ export class ProfileView extends React.Component {
   render() {
 
 
-    const { user, token, favorites } = this.props;
-
+    const { user, token, favorites, isFavorite } = this.props;
+    console.log(favorites)
     if (!this.props.profile || !this.props.user || !this.props.favorites || !this.props.movies ) return "loading profile...";
 
-    const displayFavorites = favorites.map(movie => (
+    const displayFavorites = isFavorite.map(movie => (
       <Card key={movie._id}  style={{ width: "35rem" }}>
         <Card.Text>{movie.title}</Card.Text>
         <Button className="submit"  onClick={() => this.removeFavorite(movie._id, token)}>
@@ -154,6 +155,8 @@ export class ProfileView extends React.Component {
         <div className="d-flex justify-content-center">{displayFavorites}</div>
         <Form>
           <h1> Update information form </h1>
+          <h2> IMPORTANT: You will need to log in again after any changes are made</h2>
+          <p>This form will update your current information. The username and password fields must not be left empty</p>
           <Form.Group controlId="formBasicUsername">
             <Form.Label>Username</Form.Label>
             <Form.Control
@@ -202,9 +205,11 @@ export class ProfileView extends React.Component {
           <Button
             variant="primary"
             type="submit"
+            className="submit"
             onClick={() => this.handleUpdate(token)}
+            disabled={!this.state.username || !this.state.password || this.state.password !== this.state.confirmPassword}
           >
-            Update Profile
+             Update Profile
           </Button>
         </Form>
         <Button className="submit" onClick={() => this.handleDelete(token)}>

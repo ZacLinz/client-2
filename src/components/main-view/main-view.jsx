@@ -70,22 +70,14 @@ export class MainView extends React.Component {
       })
       .then(response => {
         this.props.setUsers(response.data);
+        let currentUser = response.data.filter(user => user.username === localStorage.getItem('user'));
+        let favorites = currentUser[0].favorites;
+        this.props.setFavorites(favorites);
       })
       .catch(function(error) {
         console.log(error);
       });
   }
-
-//  getFavorites(){
-//    const { movies, profile } = this.props;
-//    const userProfile = localStorage.getItem('user');
-//    const user = profile.find(u => u.username === userProfile)
-//    const isFavorite = movies.filter(movie =>
-//      user.favorites.find(id => id === movie._id)
-//    );
-//    this.props.setFavorites(isFavorite);
-//    console.log(isFavorite)
-//  }
 
 
   logOut(){
@@ -108,7 +100,6 @@ export class MainView extends React.Component {
 
   render() {
     const { user } = this.state;
-
 
     return (
       <Router>
