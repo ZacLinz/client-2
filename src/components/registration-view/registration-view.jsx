@@ -27,7 +27,6 @@ export function RegistrationView(props) {
     .then(response =>{
       const data = response.data;
       console.log(data);
-      window.open('/');
     })
     .catch(e => {
       console.log('error registering the user')
@@ -58,7 +57,7 @@ export function RegistrationView(props) {
   </Form.Group>
   <Button variant="primary" type="submit" onClick={handleSubmit}
   disabled={!username || !email || !password.includes(confirmPassword) || password !== confirmPassword}>
-    Register
+    <a href="http://my-movie-app-108.herokuapp.com"> Register </a>
   </Button>
 </Form>
   );
