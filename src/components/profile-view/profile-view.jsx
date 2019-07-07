@@ -203,8 +203,6 @@ export class ProfileView extends React.Component {
             />
           </Form.Group>
           <Button
-            variant="primary"
-            type="submit"
             className="submit"
             onClick={() => this.handleUpdate(token)}
             disabled={!this.state.username || !this.state.password || this.state.password !== this.state.confirmPassword}
