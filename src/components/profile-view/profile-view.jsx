@@ -142,7 +142,7 @@ export class ProfileView extends React.Component {
     const displayFavorites = isFavorite.map(movie => (
       <Card key={movie._id}  style={{ width: "35rem" }}>
         <Card.Text>{movie.title}</Card.Text>
-        <Button className="submit"  onClick={() => this.removeFavorite(movie._id, token)}>
+        <Button variant="secondary" className="submit"  onClick={() => this.removeFavorite(movie._id, token)}>
           Remove from favorites?
         </Button>
       </Card>

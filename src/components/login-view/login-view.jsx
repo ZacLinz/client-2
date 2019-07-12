@@ -40,6 +40,7 @@ export function LoginView(props) {
         <Form.Control
           type="username"
           value={username}
+          class="input"
           onChange={e => setUsername(e.target.value)}
           placeholder="Enter username"
         />
@@ -49,6 +50,7 @@ export function LoginView(props) {
         <Form.Control
           type="password"
           value={password}
+          class="input"
           onChange={e => setPassword(e.target.value)}
           placeholder="Password"
         />

@@ -105,22 +105,22 @@ export class MainView extends React.Component {
       <Router>
         <Nav className="justify-content-end" activeKey="/">
           <Nav.Item>
-            <Button className="submit">
+            <Button variant="secondary" className="submit">
               <Link to={`/register`}>Register</Link>
             </Button>
           </Nav.Item>
           <Nav.Item>
-            <Button className="submit">
+            <Button variant="secondary" className="submit">
               <Link to={`/`}>Movie List</Link>
             </Button>
           </Nav.Item>
           <Nav.Item>
-            <Button className="submit">
+            <Button variant="secondary" className="submit">
               <Link to={`/users/${user}`}>{user}</Link>
             </Button>
           </Nav.Item>
           <Nav.Item>
-            <Button className="submit" onClick={() => this.logOut()}>
+            <Button variant="secondary" className="submit" onClick={() => this.logOut()}>
               <Link to={`/`}>Log Out</Link>
             </Button>
           </Nav.Item>
