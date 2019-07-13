@@ -36,21 +36,31 @@ Form{
 
 .btn-primary{
   margin-left: 15%;
+  color: black;
 }
 
 .btn-secondary{
   background-color: $colorButton;
-  color: #FFFFFF
+  color: black;
 }
 
 .label{
   font-size: 20px;
   padding-top: 5px;
   padding-bottom: 5px;
+  text-align: center;
 }
 
 .value{
   font-size: 20px;
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+a{
+  color: black;
+}
+
+.login-input{
+  display: inline-block;
 }

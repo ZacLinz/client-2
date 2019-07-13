@@ -115,8 +115,8 @@ export class MainView extends React.Component {
             </Button>
           </Nav.Item>
           <Nav.Item>
-            <Button variant="secondary" className="submit">
-              <Link to={`/users/${user}`}>{user}</Link>
+            <Button href={`/users/${user}`} variant="secondary" disabled={!user} className="submit">
+              Your Profile
             </Button>
           </Nav.Item>
           <Nav.Item>
