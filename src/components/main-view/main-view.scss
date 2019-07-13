@@ -10,5 +10,35 @@ body{
 
 .justify-content-end{
   font-size: 16px;
+  background-color: $colorButton
+}
+
+Form{
+  font-family: 'roboto condensed', sans-serif;
+  font-size: 30px;
+  line-height: 32px;
+}
+
+.submit{
   background-color: $colorButton;
+}
+
+.form-group{
+  width: 70%;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+.input{
+    width: 70%;
+    margin: auto;
+}
+
+.btn-primary{
+  margin-left: 15%;
+}
+
+.btn-secondary{
+  background-color: $colorButton;
+  color: #FFFFFF
 }

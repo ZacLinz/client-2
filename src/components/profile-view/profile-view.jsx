@@ -155,8 +155,8 @@ export class ProfileView extends React.Component {
         <div className="d-flex justify-content-center">{displayFavorites}</div>
         <Form>
           <h1> Update information form </h1>
-          <h2> IMPORTANT: You will need to log in again after any changes are made</h2>
-          <p>This form will update your current information. The username and password fields must not be left empty</p>
+          <h4> IMPORTANT: You will need to log in again after any changes are made</h4>
+          <h6>This form will update your current information. The username and password fields must not be left empty</h6>
           <Form.Group controlId="formBasicUsername">
             <Form.Label>Username</Form.Label>
             <Form.Control

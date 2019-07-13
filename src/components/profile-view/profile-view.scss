@@ -3,8 +3,18 @@ $colorButton: #33FF55;
 
 .submit{
   background-color: $colorButton;
+  color: white;
 }
 
-Button{
+.btn-primary{
   background-color: $colorButton;
+  color: white;
+}
+
+.btn-primary:disabled{
+  background-color: $colorButton;
+}
+
+.card{
+  margin: 5px 5px 25px;
 }
