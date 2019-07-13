@@ -17,7 +17,8 @@ function DirectorView(props) {
     const movie = movies.find(m => m.director.name == director);
 
     return(
-      <Card className="movie-view">
+      <div className= "d-flex justify-content-center">
+      <Card className="movie-view justify-content-center" style={{ width: "45rem" }}>
         <Row className="director-name">
           <Col lg="2" className="label">Name: </Col>
           <Col className="value">{movie.director.name}</Col>
@@ -31,6 +32,7 @@ function DirectorView(props) {
           <Col className="value">{movie.director.birth}</Col>
         </Row>
       </Card>
+      </div>
 
     );
   }

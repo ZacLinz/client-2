@@ -17,7 +17,8 @@ function GenreView(props) {
   const movie = movies.find(m => m.genre.name == genre);
   console.log(movie)
     return (
-      <Card className="movie-view">
+      <div className= "d-flex justify-content-center">
+      <Card className="movie-view justify-content-center" style={{ width: "50rem" }}>
         <Row className="genre-name">
           <Col lg="2" className="label">
             Genre Name:{" "}
@@ -31,6 +32,7 @@ function GenreView(props) {
           <Col className="value">{movie.genre.description}</Col>
         </Row>
       </Card>
+      </div>
     );
   }
 export default connect(({ movies }) => ({ movies }))(GenreView);
