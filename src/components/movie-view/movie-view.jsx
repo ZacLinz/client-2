@@ -16,7 +16,7 @@ function MovieView(props) {
   const movie = movies.find(m => m._id == movieId);
   console.log(movie)
   return (
-    <Container className="movie-view">
+    <Card className="movie-view">
       <img className="movie-poster" src={movie.ImagePath} />
       <Row className="movie-title">
         <Col lg="2" className="label">
@@ -53,7 +53,7 @@ function MovieView(props) {
           </Button>
         </Link>
       </Row>
-    </Container>
+    </Card>
   );
 }
 export default connect(({ movies }) => ({ movies }))(MovieView);
