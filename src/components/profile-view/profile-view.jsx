@@ -203,11 +203,12 @@ export class ProfileView extends React.Component {
             />
           </Form.Group>
           <Button
+            href={'/'}
             className="submit"
             onClick={() => this.handleUpdate(token)}
             disabled={!this.state.username || !this.state.password || this.state.password !== this.state.confirmPassword}
           >
-            <Link to={'/'}> Update Profile </Link>
+            Update Profile
           </Button>
         </Form>
         <Button className="submit" onClick={() => this.handleDelete(token)}>

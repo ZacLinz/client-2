@@ -105,8 +105,8 @@ export class MainView extends React.Component {
       <Router>
         <Nav className="justify-content-end" activeKey="/">
           <Nav.Item>
-            <Button variant="secondary" disabled={user} className="submit">
-              <Link to={`/register`}>Register</Link>
+            <Button href={'/register'} variant="secondary" disabled={user} className="submit">
+              Register
             </Button>
           </Nav.Item>
           <Nav.Item>
